@@ -55,3 +55,5 @@ nunit-*.xml
 
 # Env variables
 *.env
+/.vs
+/ConsoleAgent/.vs
