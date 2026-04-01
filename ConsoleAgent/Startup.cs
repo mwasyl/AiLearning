@@ -2,6 +2,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.AI;
+using GeminiDotnet.Extensions.AI;
+using GeminiDotnet;
 
 namespace ConsoleAgent;
 
@@ -18,6 +20,11 @@ public static class Startup
             var client = provider switch
             {
                  "openai" => new OpenAI.Chat.ChatClient(model, Environment.GetEnvironmentVariable("OPENAI_API_KEY")!).AsIChatClient(),
+                 "gemini" => new GeminiClient(new GeminiClientOptions
+                 {
+                     ApiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY")!,
+                     ModelId = model
+                 }).AsChatClient(),
                  _ => throw new ArgumentException($"Uknown provider: {provider}")
             };
 
