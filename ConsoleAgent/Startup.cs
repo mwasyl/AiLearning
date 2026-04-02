@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.AI;
 using GeminiDotnet.Extensions.AI;
 using GeminiDotnet;
+using Anthropic.SDK;
 
 namespace ConsoleAgent;
 
@@ -25,7 +26,8 @@ public static class Startup
                      ApiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY")!,
                      ModelId = model
                  }).AsChatClient(),
-                 _ => throw new ArgumentException($"Uknown provider: {provider}")
+                //  "claude" => new AnthropicClient(new APIAuthentication(Environment.GetEnvironmentVariable("ANTHROPIC_API_KEY")!)).Messages,
+                //  _ => throw new ArgumentException($"Uknown provider: {provider}")
             };
 
             return new ChatClientBuilder(client)
