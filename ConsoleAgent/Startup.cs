@@ -5,6 +5,7 @@ using Microsoft.Extensions.AI;
 using GeminiDotnet.Extensions.AI;
 using GeminiDotnet;
 using Anthropic.SDK;
+using ConsoleAgent.Services;
 
 namespace ConsoleAgent;
 
@@ -27,7 +28,7 @@ public static class Startup
                      ModelId = model
                  }).AsChatClient(),
                 //  "claude" => new AnthropicClient(new APIAuthentication(Environment.GetEnvironmentVariable("ANTHROPIC_API_KEY")!)).Messages,
-                //  _ => throw new ArgumentException($"Uknown provider: {provider}")
+                _ => throw new ArgumentException($"Uknown provider: {provider}")
             };
 
             return new ChatClientBuilder(client)
@@ -42,7 +43,16 @@ public static class Startup
         {
             ModelId = model,
             Temperature = 1,
-            MaxOutputTokens = 5000
+            MaxOutputTokens = 5000,
+            Tools = [.. FunctionRegistry.GetTools(sp)]
         });
+
+        builder.Services.AddSingleton<WeatherService>(sp =>
+        {
+            var apiKey = Environment.GetEnvironmentVariable("WEATHER_API_DOTCOM_KEY")!;
+            return new WeatherService(apiKey);
+        });
+
+        builder.Services.AddSingleton<WardrobeService>();
     }
 }

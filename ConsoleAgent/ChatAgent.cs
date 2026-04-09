@@ -16,7 +16,7 @@ namespace ConsoleAgent
 
             var history = new List<ChatMessage>
             {
-                new (ChatRole.System, "You are a helpful CLI assistant."),
+                new (ChatRole.System, "You are a helpful CLI assistant. Use the provided functions when appropriate."),
             };
 
             Console.WriteLine($"Ask me anything (empty = exit).");
