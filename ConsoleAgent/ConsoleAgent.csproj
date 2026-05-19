@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ConsoleAgent.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Anthropic.SDK" Version="5.10.0" />
     <PackageReference Include="dotenv.net" Version="4.0.1" />
     <PackageReference Include="GeminiDotnet.Extensions.AI" Version="0.23.0" />
