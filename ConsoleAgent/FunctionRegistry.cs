@@ -30,5 +30,15 @@ public static class FunctionRegistry
             Description = "Lists the clothing items in the wardrobe."
         });
 
+        var emailService = sp.GetRequiredService<EmailService>();
+
+        var emailFriendFn = typeof(EmailService)
+            .GetMethod(nameof(EmailService.EmailFriend), [typeof(string), typeof(string)])!;
+
+        yield return AIFunctionFactory.Create(emailFriendFn, emailService, new AIFunctionFactoryOptions
+        {
+            Name = "email_friend",
+            Description = "Sends an email to my friend with this name."
+        });
     }
 }

@@ -54,5 +54,6 @@ public static class Startup
         });
 
         builder.Services.AddSingleton<WardrobeService>();
+        builder.Services.AddSingleton<EmailService>();
     }
 }
